@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
-import pandas as pd
+#import pandas as pd
 #import matplotlib.pyplot as plt, mpld3
 #from matplotlib.pyplot import figure
 
-data = pd.read_csv('logfile.csv')
+#data = pd.read_csv('logfile.csv')
 
-print(data)
+#print(data)
 
 #topline = data[data.probe1 == 'United States']
 #bottomline = data[data.country == 'China']
@@ -24,3 +24,7 @@ print(data)
 #plt.grid(True)
 
 #mpld3.save_html(fig, "test_example2.html")
+
+import numpy as np
+import matplotlib.pyplot as plt
+

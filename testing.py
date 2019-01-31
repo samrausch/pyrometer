@@ -11,10 +11,10 @@ csvfile = csv.writer(log, delimiter = ",")
 lcd1 = TM1637(4, 17)
 lcd1.brightness(7)
 start_time = time.time()
-csvfile.writerow(["probe1", "probe2", "time"])
+#csvfile.writerow(["probe1", "probe2", "time"])
 
 def make_some_data(elapsed_time):
-    csvfile.writerow([random.randint(100, 300), random.randint(200, 400), elapsed_time])
+    csvfile.writerow([random.randint(100, 300), elapsed_time])
     log.flush()
 
 def show_timer(lcd1):
@@ -27,4 +27,4 @@ def show_timer(lcd1):
 
 # Main Loop
 while True:
-    show_timer(lcd)
+    show_timer(lcd1)

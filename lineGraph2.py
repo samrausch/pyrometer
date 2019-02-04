@@ -21,24 +21,34 @@ with open('logfile.csv','r') as csvfile:
 print("Data Imported")
 #secs = mdate.epoch2num(time)
 secs = time
-print(secs)
+#print(secs)
 
 #fig = plt.figure(figsize=[12, 7])
 fig, ax = plt.subplots(figsize=(12, 7))
 plt.plot(secs, probe1, label='Probe 1')
 plt.plot(secs, probe2, label='Probe 2')
 
-plt.gcf().autofmt_xdate()
-plt.gca().xaxis.set_major_locator(mtick.FixedLocator(secs))
-plt.gca().xaxis.set_major_formatter(
-    mtick.FuncFormatter(lambda pos,_: time.strftime("%d-%m-%Y %H:%M:%S", time.localtime(pos)))
-    )
+#plt.gcf().autofmt_xdate()
+#plt.gca().xaxis.set_major_locator(mtick.FixedLocator(secs))
+#plt.gca().xaxis.set_major_formatter(
+#    mtick.FuncFormatter(lambda pos,_: time.strftime("%d-%m-%Y %H:%M:%S", time.localtime(pos)))
+#    )
+
+#print("\n")
+#print(probe1[-1])
+#print("\n")
+#print(secs[-1])
+
+#plt.annotate("Peanuts", xy=(secs[-1], probe1[-1]), xycoords=('data', 'data'), xytext=(-145, 0), textcoords='offset pixels')
+#plt.annotate("Peanuts", xy=(secs[-1], probe1[-1])
+plt.text(secs[-1]+1, probe1[-1]+1, probe1[-1])
+plt.text(secs[-1]+1, probe2[-1]+1, probe2[-1])
 
 plt.xlabel('Time (sec)')
 plt.ylabel('Temp (F)')
 plt.title('Temp History')
-plt.legend()
-ax.set_xlim(left=int(secs[-1] - 1800))
+plt.legend(loc=2)
+#ax.set_xlim(left=int(secs[-1] - 1800))
 
 #date_fmt = '%d-%m-%y %H:%M:%S'
 

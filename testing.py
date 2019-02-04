@@ -5,16 +5,21 @@ import time
 import math
 import csv
 import random
+import os
+
+if os.path.exists("logfile.csv"):
+    os.remove("logfile.csv")
 
 log = open("logfile.csv", "a")
 csvfile = csv.writer(log, delimiter = ",")
+csvfile.writerow(["probe1", "probe2", "time"])
 lcd1 = TM1637(4, 17)
 lcd1.brightness(7)
 start_time = time.time()
 #csvfile.writerow(["probe1", "probe2", "time"])
 
 def make_some_data(elapsed_time):
-    csvfile.writerow([random.randint(100, 300), elapsed_time])
+    csvfile.writerow([random.randint(100, 300), random.randint(200, 400), math.floor(time.time())])
     log.flush()
 
 def show_timer(lcd1):

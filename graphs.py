@@ -1,30 +1,33 @@
 #!/usr/bin/python3
 
-#import pandas as pd
-#import matplotlib.pyplot as plt, mpld3
+import pandas as pd
+import matplotlib.pyplot as plt, mpld3
 #from matplotlib.pyplot import figure
 
-#data = pd.read_csv('logfile.csv')
+data = pd.read_csv('logfile.csv', header=0)
 
-#print(data)
+print("Data imported")
 
-#topline = data[data.probe1 == 'United States']
-#bottomline = data[data.country == 'China']
+topline = data['probe1']
+bottomline = data['probe2']
+elapsed_time = data['time']
 
-#fig = figure(num=None, figsize=(6, 8))
-# ax = fig.gca()
-# ax.plot(us.year, us.population / 10**6)
+print("Data defined")
 
-#plt.plot(us.year, us.population / 10**6)
-#plt.plot(china.year, china.population / 10**6)
+#plt.figure(figsize=[10, 8])
+#ax = fig.gca()
+ax = plt.subplots()
+l0 = ax.plot(topline, elapsed_time)
+l1 = ax.plot(bottomline, elapsed_time)
+
+#plt.plot(topline, elapsed_time)
+#plt.plot(bottomline, elapsed_time)
 #plt.legend(["United States", "China"], loc=0, fontsize=15)
 #plt.ylabel("Cheeseburgers!", size=20)
 #plt.xlabel("Beers!", size=20)
 #plt.title("Drinks per Cheeseburger", size=30)
 #plt.grid(True)
 
-#mpld3.save_html(fig, "test_example2.html")
+mpld3.save_html(fig, "test_example2.html")
 
-import numpy as np
-import matplotlib.pyplot as plt
 

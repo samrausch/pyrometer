@@ -1,14 +1,12 @@
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt, mpld3
-import matplotlib.axes as axes
-import matplotlib.ticker as mticker
 import csv
 import datetime
 
-probe1 = []
-probe2 = []
-pyro_time = []
+probe1 = [123, 128, 192, 178, 210, 223, 252, 268]
+probe2 = [121, 135, 164, 212, 245, 298, 301, 303]
+secs = [1549565281, 1549565282, 1549565283, 1549565284, 1549565285, 1549565286, 1549565287, 1549565288]
 
 def hms(x, pos=None):
 	td = datetime.timedelta(seconds = x)
@@ -21,18 +19,6 @@ def hms(x, pos=None):
 	print(tickString)
 	return tickString
 
-def hms2(x, pos=None):
-	return str(x/2)
-
-with open('logfile.csv','r') as csvfile:
-    plots = csv.reader(csvfile, delimiter=',')
-    for row in plots:
-        probe1.append(int(row[0]))
-        probe2.append(int(row[1]))
-        pyro_time.append(int(row[2]))
-
-print("Data Imported")
-secs = pyro_time
 formatter = plt.FuncFormatter(hms2)
 
 fig, ax = plt.subplots(figsize=(12, 7))
@@ -48,6 +34,5 @@ plt.xlabel('Time (sec)')
 plt.ylabel('Temp (F)')
 plt.title('Temp History')
 plt.legend(loc=2)
-#ax.set_xlim(left=int(secs[-1] - 7200))
 
 mpld3.save_html(fig, "test_example2.html")

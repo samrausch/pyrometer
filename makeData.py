@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from tm1637 import TM1637
 import time
 import math
 import csv

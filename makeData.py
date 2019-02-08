@@ -22,8 +22,8 @@ probe2.append(376)
 etime.append(1)
 i = 0
 
-while i < 86400:
-	i = i + 10
+while i < 50400:
+	i = i + 5
 	if probe1[-1] > 2500:
 		probe1.append(probe1[-1] - random.randint(500, 800))
 	else:
@@ -35,3 +35,4 @@ while i < 86400:
 	etime.append(i)
 	csvfile.writerow([probe1[-1], probe2[-1], math.floor(etime[-1])])
 	log.flush()
+	time.sleep(1)

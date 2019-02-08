@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt, mpld3
@@ -24,7 +25,7 @@ def hms(x, pos=None):
 def hms2(x, pos=None):
 	return str(x/2)
 
-with open('logfile.csv','r') as csvfile:
+with open('/root/pyrometer/logfile.csv','r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         probe1.append(int(row[0]))
@@ -47,7 +48,7 @@ plt.xlabel('Time (H:M:S)')
 plt.ylabel('Temp (F)')
 plt.title('Temp History')
 plt.legend(loc=2)
-plt.savefig("testfig.png")
+plt.savefig("/var/www/html/pyrometer/testfig.png")
 #ax.set_xlim(left=int(secs[-1] - 7200))
 
-mpld3.save_html(fig, "test_example2.html")
+mpld3.save_html(fig, "/var/www/html/pyrometer/test_example2.html")

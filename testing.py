@@ -11,7 +11,7 @@ if os.path.exists("logfile.csv"):
 
 log = open("logfile.csv", "a")
 csvfile = csv.writer(log, delimiter = ",")
-csvfile.writerow(["probe1", "probe2", "time"])
+#csvfile.writerow(["probe1", "probe2", "time"])
 #lcd1 = TM1637(4, 17)
 #lcd1.brightness(7)
 start_time = time.time()

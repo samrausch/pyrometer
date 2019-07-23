@@ -136,15 +136,15 @@ while True:
             print("Welcome is already running")
         else:
             p2.start()
-input3 = GPIO.input(20)
-if input3 == False:
-    p1.terminate()
-    p2.terminate()
-    p4.terminate()
-    print("Shutting down")
-    lcd2.scroll("")
-    lcd1.scroll("Shutting down")
-    bashCommand = "shutdown now"
-    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-    output, error = process.communicate()
+    input3 = GPIO.input(20)
+    if input3 == False:
+        p1.terminate()
+        p2.terminate()
+        p4.terminate()
+        print("Shutting down")
+        lcd2.scroll("")
+        lcd1.scroll("Shutting down")
+        bashCommand = "shutdown now"
+        process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+        output, error = process.communicate()
 

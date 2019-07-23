@@ -28,22 +28,27 @@ with open('logfile.csv','r') as csvfile:
         pyro_time.append(int(row[2]))
 
 print("Data Imported")
-mins = mdates.epoch2num(pyro_time)
+mins_intermediate = mdates.epoch2num(pyro_time)
+mins = mdates.num2date(mins_intermediate)
 secs = pyro_time
-locator = mdates.AutoDateLocator()
-formatter = mdates.AutoDateFormatter(locator)
 
-print(secs)
-print(mins)
+#print(secs)
+#print(mins)
+#print(mins_intermediate)
+#print(pyro_time)
+
+hourTicks = mdates.HourLocator()
+tickFormat = mdates.DateFormatter('%H:%M')
 
 fig, ax = plt.subplots(figsize=(12, 7))
+ax.grid(True)
+ax.xaxis.set_major_locator(hourTicks)
+ax.xaxis.set_major_formatter(tickFormat)
 plt.plot(mins, probe1, label='Probe 1')
 plt.plot(mins, probe2, label='Probe 2')
-ax.xaxis.set_major_formatter(formatter)
-#ax.xaxis.set_major_formatter(plt.NullFormatter())
 
-#plt.text(secs[-1]+1, probe1[-1]+1, probe1[-1], fontsize=15)
-#plt.text(secs[-1]+1, probe2[-1]+1, probe2[-1], fontsize=15)
+plt.text(secs[-1]+1, probe1[-1]+1, probe1[-1], fontsize=15)
+plt.text(secs[-1]+1, probe2[-1]+1, probe2[-1], fontsize=15)
 
 
 #plt.xlabel('Time (sec)')
@@ -52,4 +57,4 @@ ax.xaxis.set_major_formatter(formatter)
 #plt.legend(loc=2)
 #ax.set_xlim(left=int(secs[-1] - 7200))
 
-mpld3.save_html(fig, "test_example2.html")
+mpld3.save_html(fig, "/var/www/html/test_example2.html")

@@ -23,18 +23,18 @@ start_time = math.floor(time.time())
 
 mode = 1
 
-lcd1 = TM1637(18, 17)
-lcd2 = TM1637(4, 21)
+lcd1 = TM1637(19, 20)
+lcd2 = TM1637(21, 26)
 lcd1.brightness(7)
 lcd2.brightness(7)
 
-sensor1 = MAX31855.MAX31855(25, 5, 6)
-sensor2 = MAX31855.MAX31855(12, 13, 16)
+sensor1 = MAX31855.MAX31855(4, 17, 18)
+sensor2 = MAX31855.MAX31855(27, 22, 23)
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

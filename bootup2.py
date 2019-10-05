@@ -23,10 +23,10 @@ start_time = math.floor(time.time())
 
 mode = 1
 
-lcd1 = TM1637(19, 20)
-lcd2 = TM1637(21, 26)
-lcd1.brightness(7)
-lcd2.brightness(7)
+lcd1 = TM1637(5, 6)
+lcd2 = TM1637(26, 21)
+lcd1.brightness(2)
+lcd2.brightness(2)
 
 sensor1 = MAX31855.MAX31855(4, 17, 18)
 sensor2 = MAX31855.MAX31855(27, 22, 23)
@@ -37,6 +37,7 @@ GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def get_ip():
+#    lcd1.scroll("Welcome")
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         # doesn't even have to be reachable
@@ -44,19 +45,21 @@ def get_ip():
         ip = s.getsockname()[0]
     except:
         ip = '127.0.0.1'
-        lcd1.scroll("No Connection")
+        lcd2.scroll("No Connection")
     finally:
         s.close()
         ip_split = ip.split(".")
     while True:
-        lcd1.scroll("IP Address")
+        lcd2.scroll("")
+        lcd2.scroll("IP Address")
         for word in ip_split:
-            lcd1.scroll(word)
+            lcd2.scroll(word)
 
 
 def welcome():
     while True:
-        lcd2.scroll("Press top button to start")
+        lcd1.scroll("")
+        lcd1.scroll("Press top button to start")
 
 
 def c_to_f(c):
@@ -87,15 +90,20 @@ def pyrometer_main():
     while True:
         temp1, internal1, temp2, internal2 = get_temps(sensor1, sensor2)
         elapsed_time = math.floor(time.time() - start_time)
-        csvfile.writerow([temp1, temp2, elapsed_time])
+        csvfile.writerow([int(temp1), int(temp2), int(time.time())])
+        print(temp1)
+        print(temp2)
+#        print(int(temp1))
+#        print(int(temp2))
         print(internal1)
         print(internal2)
-        print(int(internal1))
-        print(int(internal2))
         log.flush()
-        lcd1.number(int(internal1))
-        lcd2.number(int(internal2))
-        time.sleep(5)
+        lcd1.number(int(temp1))
+        lcd2.number(int(temp2))
+        time.sleep(4)
+        lcd1.number(0)
+        lcd2.number(0)
+        time.sleep(1)
 
 
 p1 = Process(target=get_ip)
@@ -105,7 +113,7 @@ p1.start()
 p2.start()
 
 while True:
-    input1 = GPIO.input(26)
+    input1 = GPIO.input(12)
     if input1 == False:
         print("Starting pyrometer")
         if p1.is_alive():
@@ -118,8 +126,9 @@ while True:
         if p4.is_alive():
             print("Pyrometer already running")
         else:
+            p4 = Process(target=pyrometer_main)
             p4.start()
-    input2 = GPIO.input(19)
+    input2 = GPIO.input(13)
     if input2 == False:
         print("Stopping pyrometer")
         if p4.is_alive():
@@ -130,17 +139,22 @@ while True:
         if p1.is_alive():
             print("Get IP already running")
         else:
+            p1 = Process(target=get_ip)
             p1.start()
 #        p2.join(timeout=0)
         if p2.is_alive():
             print("Welcome is already running")
         else:
+            p2 = Process(target=welcome)
             p2.start()
-    input3 = GPIO.input(20)
+    input3 = GPIO.input(16)
     if input3 == False:
-        p1.terminate()
-        p2.terminate()
-        p4.terminate()
+        if p1.is_alive():
+            p1.terminate()
+        if p2.is_alive():
+            p2.terminate()
+        if p4.is_alive():
+            p4.terminate()
         print("Shutting down")
         lcd2.scroll("")
         lcd1.scroll("Shutting down")

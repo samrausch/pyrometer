@@ -23,9 +23,9 @@ def hms(x, pos=None):
 with open('logfile.csv','r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
-        probe1.append(int(row[0]))
-        probe2.append(int(row[1]))
-        pyro_time.append(int(row[2]))
+        probe1.append(row[0])
+        probe2.append(row[1])
+        pyro_time.append(row[2])
 
 print("Data Imported")
 mins_intermediate = mdates.epoch2num(pyro_time)

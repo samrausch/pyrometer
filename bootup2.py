@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3 -u
 
 from multiprocessing import Process
 from tm1637 import TM1637
@@ -90,7 +90,7 @@ def pyrometer_main():
     while True:
         temp1, internal1, temp2, internal2 = get_temps(sensor1, sensor2)
         elapsed_time = math.floor(time.time() - start_time)
-        csvfile.writerow([int(temp1), int(temp2), int(time.time())])
+#        csvfile.writerow([int(temp1), int(temp2), int(time.time())])
         print(temp1)
         print(temp2)
 #        print(int(temp1))
